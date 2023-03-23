@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 ##################
 # Initialization #
@@ -9,15 +9,15 @@ DIR_CONFIG='./config'
 CURRENT_OS=$(uname -s)
 echo "OS detected: $CURRENT_OS"
 
-if [ -z "$HOST" ]; then 
+if [ -z "$HOST" ]; then
    #If HOST parameter is not provided, use the default hostname/address:
 
-   if [ "$CURRENT_OS" = "Darwin" ]; then
-      # Max OS X - not tested!!!
-      HOST=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p' | head -1); 
-   else
+   # if [ "$CURRENT_OS" = "Darwin" ]; then
+   #    # Max OS X - not tested!!!
+   #    HOST=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p' | head -1);
+   # else
       HOST="host.docker.internal"
-   fi
+   # fi
 fi
 
 # Display the hostname/ip address that will be applied on configuration files
@@ -44,10 +44,10 @@ fi
 scripts/init.config.mono-tenant.two-dataspaces.sh $HOST
 
 # Apply host value at KEYCLOAK_HOST variable in ENV file
-sed -Ei "s#^KEYCLOAK_HOST=.*#KEYCLOAK_HOST=$HOST#g" .env
+sed -Ee "s#^KEYCLOAK_HOST=.*#KEYCLOAK_HOST=$HOST#g" .env
 
 # Apply host value at HOST variable in ENV file
-sed -Ei "s#^HOST=.*#HOST=$HOST#g" .env
+sed -Ee "s#^HOST=.*#HOST=$HOST#g" .env
 
 #########################
 # Start docker services #

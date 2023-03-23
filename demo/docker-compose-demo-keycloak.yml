@@ -8,7 +8,7 @@ services:
   postgres:
     image: postgres:12
     container_name: postgres
-    restart: always 
+    restart: always
     volumes:
         - postgres_data:/var/lib/postgresql/data
     environment:
@@ -22,6 +22,7 @@ services:
 
   keycloak:
     image: siscc/dotstatsuite-keycloak:master
+    platform: linux/amd64
     container_name: keycloak
     depends_on:
         - postgres
