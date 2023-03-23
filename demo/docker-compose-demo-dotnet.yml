@@ -221,9 +221,8 @@ services:
           - dotstat_network
 
     db:
-        image: mcr.microsoft.com/azure-sql-edge:latest
-        # image: mcr.microsoft.com/mssql/server:2022-latest
-        # platform: linux/amd64
+        image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+        platform: linux/amd64
         container_name: mssql
         ports:
           - "${SQL_PORT}:1433"
